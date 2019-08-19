@@ -1,4 +1,4 @@
-/** @babel */
+"use babel"
 
 import path from 'path'
 
@@ -47,14 +47,13 @@ export default function testClient () {
       }, () => juno.connection.boot())
 
       runs(() => {
-        expect(clientStatus()).toEqual([true, true])
         conn = client.conn
       })
     })
 
-    // it('recognises the client\'s state after boot', () => {
-    //   expect(clientStatus()).toEqual([true, false])
-    // })
+    it('recognises the client\'s state after boot', () => {
+      expect(clientStatus()).toEqual([true, false])
+    })
   })
 
   describe('while the client is active', () => {

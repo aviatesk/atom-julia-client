@@ -36,20 +36,20 @@ function cyclerSetup () {
   runs(() => atom.config.set('julia-client.juliaOptions.bootMode', 'Cycler'))
 }
 
-describe('basic client', () => {
+describe('basic client managements', () => {
   beforeEach(basicSetup)
   testClient()
 })
 
-describe('cycler client', () => {
+describe('cycler client managements', () => {
   beforeEach(cyclerSetup)
   testClient()
 })
 
-describe('in editor code evaluation', () => {
-  beforeEach(() => {
-    cyclerSetup()
+describe('features with active client', () => {
+  beforeEach(cyclerSetup())
 
+  it('needs booting a julia client first', () => {
     waitsForPromise({
       timeout: BOOT_TIMEOUT,
       label: `booting julia client`
@@ -58,5 +58,9 @@ describe('in editor code evaluation', () => {
     runs(() => client.attach(client.conn))
   })
 
-  testEvaluation()
+  describe('in-editor evaluation', () => {
+    testEvaluation()
+  })
 })
+
+console.log(process.env)
