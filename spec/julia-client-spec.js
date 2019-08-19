@@ -1,7 +1,5 @@
 /** @babel */
 
-import path from 'path'
-
 import juno from '../lib/julia-client'
 import testClient from './client'
 import testEvaluation from './evaluation'
@@ -14,10 +12,9 @@ const { client } = juno.connection
 
 function basicSetup () {
   jasmine.attachToDOM(atom.views.getView(atom.workspace))
-  const packageDir = path.join(ATOM_HOME, 'packages')
-  waitsForPromise(() => atom.packages.activatePackage(path.join(packageDir, 'language-julia')))
-  waitsForPromise(() => atom.packages.activatePackage(path.join(packageDir, 'ink')))
-  waitsForPromise(() => atom.packages.activatePackage(path.join(packageDir, 'julia-client')))
+  waitsForPromise(() => atom.packages.activatePackage('language-julia'))
+  waitsForPromise(() => atom.packages.activatePackage('ink'))
+  waitsForPromise(() => atom.packages.activatePackage('julia-client'))
 
   runs(() => {
     atom.config.set('julia-client', {
