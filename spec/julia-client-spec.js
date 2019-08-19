@@ -1,4 +1,6 @@
-/** @babel */
+"use babel"
+
+import path from 'path'
 
 import juno from '../lib/julia-client'
 import testClient from './client'
@@ -12,9 +14,16 @@ const { client } = juno.connection
 
 function basicSetup () {
   jasmine.attachToDOM(atom.views.getView(atom.workspace))
-  waitsForPromise(() => atom.packages.activatePackage('language-julia'))
-  waitsForPromise(() => atom.packages.activatePackage('ink'))
-  waitsForPromise(() => atom.packages.activatePackage('julia-client'))
+  if (process.env.ATOM_CI) {
+    waitsForPromise(() => atom.packages.activatePackage('language-julia'))
+    waitsForPromise(() => atom.packages.activatePackage('ink'))
+    waitsForPromise(() => atom.packages.activatePackage('julia-client'))
+  } else {
+    const packageDir = path.join(process.env.ATOM_HOME, 'packages')
+    waitsForPromise(() => atom.packages.activatePackage(path.join(packageDir, 'language-julia')))
+    waitsForPromise(() => atom.packages.activatePackage(path.join(packageDir, 'ink')))
+    waitsForPromise(() => atom.packages.activatePackage(path.join(packageDir, 'julia-client')))
+  }
 
   runs(() => {
     atom.config.set('julia-client', {

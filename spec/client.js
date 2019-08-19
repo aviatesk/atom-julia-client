@@ -48,11 +48,11 @@ export default function testClient () {
 
       runs(() => {
         conn = client.conn
-      })
-    })
 
-    it('recognises the client\'s state after boot', () => {
-      expect(clientStatus()).toEqual([true, false])
+        it('recognises the client\'s state after boot', () => {
+          expect(clientStatus()).toEqual([true, false])
+        })
+      })
     })
   })
 

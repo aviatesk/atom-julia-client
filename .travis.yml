@@ -6,6 +6,7 @@ julia:
 
 env:
   global:
+    - ATOM_CI="true"
     - APM_TEST_PACKAGES="ink language-julia"
     - ATOM_LINT_WITH_BUNDLED_NODE="true"
 
