@@ -45,15 +45,16 @@ export default function testClient () {
         timeout: BOOT_TIMEOUT,
         label: `booting julia client`
       }, () => juno.connection.boot())
-
-      runs(() => {
-        conn = client.conn
-
-        it('recognises the client\'s state after boot', () => {
-          expect(clientStatus()).toEqual([true, false])
-        })
-      })
+      expect(clientStatus()).toEqual([true, true])
     })
+
+    runs(() => {
+      conn = client.conn
+    })
+
+    // it('recognises the client\'s state after boot', () => {
+    //   expect(clientStatus()).toEqual([true, false])
+    // })
   })
 
   describe('while the client is active', () => {

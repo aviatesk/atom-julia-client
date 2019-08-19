@@ -71,5 +71,3 @@ describe('features with active client', () => {
     testEvaluation()
   })
 })
-
-console.log(process.env)
