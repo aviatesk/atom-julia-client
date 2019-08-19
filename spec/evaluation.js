@@ -38,33 +38,33 @@ export default function testEvaluation () {
     runs(() => expect(spy).toHaveBeenCalled())
   })
 
-  describe('when an expression is evaluated', function() {
-    var results;
-    results = null;
-    beforeEach(function() {
-      editor.insertText('2+2');
-      return waitsForPromise((function(_this) {
-        return function() {
-          return juno.runtime.evaluation['eval']().then(function(x) {
-            return results = x;
-          });
-        };
-      })(this));
-    });
-    it('retrieves the value of the expression', function() {
-      var view;
-      expect(results.length).toBe(1);
-      view = juno.ui.views.render(results[0]);
-      return expect(view.innerText).toBe('4');
-    });
-    return it('displays the result', function() {
-      var views;
-      views = atom.views.getView(editor).querySelectorAll('.result');
-      expect(views.length).toBe(1);
-      return expect(views[0].innerText).toBe('4');
-    });
-  });
-  return describe('completions', function() {
+  describe('when an expression is evaluated', () => {
+    let results
+    beforeEach(() => {
+      editor.insertText('2+2')
+      waitsForPromise(() => {
+        return juno.runtime.evaluation['eval']().then(ret => {
+          results = ret;
+        })
+      })
+    })
+
+    it('retrieves the value of the expression', () => {
+      const view = juno.ui.views.render(results[0])
+
+      expect(results.length).toBe(1)
+      expect(view.innerText).toBe('4')
+    })
+
+    it('displays the result', () => {
+      const views = atom.views.getView(editor).querySelectorAll('.result');
+
+      expect(views.length).toBe(1)
+      expect(views[0].innerText).toBe('4')
+    })
+  })
+
+  describe('completions', () => {
     var completionsData, getSuggestions;
     completionsData = function() {
       return {
