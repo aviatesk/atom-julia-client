@@ -6,7 +6,6 @@ import juno from '../lib/julia-client'
 import testClient from './client'
 import testEvaluation from './evaluation'
 
-const ATOM_HOME = process.env.ATOM_HOME
 export const BOOT_TIMEOUT = 3 * 60 * 1000
 export const EVALUATION_TIMEOUT = 60 * 1000
 
@@ -56,7 +55,7 @@ describe('cycler client managements', () => {
 })
 
 describe('features with active client', () => {
-  beforeEach(cyclerSetup())
+  beforeEach(cyclerSetup)
 
   it('needs booting a julia client first', () => {
     waitsForPromise({

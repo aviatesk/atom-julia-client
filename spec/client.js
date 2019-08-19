@@ -19,7 +19,7 @@ export default function testClient () {
   describe('before booting', () => {
     it('can invalidate a non-existant julia binary', () => {
       waitsFor(done => {
-        checkPath(path.join('imnot', 'julia')).catch(() => done())
+        checkPath(path.join(process.env.ATOM_HOME, 'julia')).catch(() => done())
       })
     })
 
@@ -45,16 +45,15 @@ export default function testClient () {
         timeout: BOOT_TIMEOUT,
         label: `booting julia client`
       }, () => juno.connection.boot())
-      expect(clientStatus()).toEqual([true, true])
     })
 
     runs(() => {
       conn = client.conn
     })
 
-    // it('recognises the client\'s state after boot', () => {
-    //   expect(clientStatus()).toEqual([true, false])
-    // })
+    it('recognises the client\'s state after boot', () => {
+      expect(clientStatus()).toEqual([true, false])
+    })
   })
 
   describe('while the client is active', () => {
